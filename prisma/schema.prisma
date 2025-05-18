@@ -1,0 +1,40 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("ALIYUN_POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("ALIYUN_POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+enum Chain {
+  solana
+  base
+}
+
+model Item {
+  id                String      @default(cuid()) @id
+  privyUserId       String      @map(name: "privy_user_id")
+  ethWalletAddress  String      @map(name:"eth_wallet_address")
+  arweaveItemId     String      @unique @map(name:"arweave_item_id")
+  createdAt         DateTime    @default(now()) @map(name: "created_at")
+  updatedAt         DateTime    @updatedAt @map(name: "updated_at")
+  @@map("items")
+}
+
+model Token {
+  id                String      @default(cuid()) @id
+  privyUserId       String      @map(name: "privy_user_id")
+  ethWalletAddress  String      @map(name:"eth_wallet_address")
+  chain             Chain       @map(name:"chain")
+  address           String      @map(name:"address")
+  symbol            String?     @map(name:"symbol")
+  name              String?     @map(name:"name")
+  image             String?     @map(name:"image")
+  createdAt         DateTime    @default(now()) @map(name: "created_at")
+  updatedAt         DateTime    @updatedAt @map(name: "updated_at")
+  @@map("Tokens")
+}
