@@ -1,5 +1,5 @@
 import { genNodeAPI, getTokenTagByEver } from "arseeding-js";
-import type { DataItemCreateOptions } from "arseeding-arbundles";
+import { DataItemCreateOptions } from "arseeding-arbundles";
 
 export type ArseedingInstance = ReturnType<typeof genNodeAPI>;
 
